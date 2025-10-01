@@ -1,2 +1,3 @@
 # DomainEvent
-A solid and easy to use way to work with Domain Events.
+
+The best way to work with Domain Events.
