@@ -1,13 +1,15 @@
 {
-  "name": "spriebsch/project-template",
-  "description": "A minimal PHP project template",
-  "type": "project",
+  "name": "spriebsch/DomainEvent",
+  "description": "The best way to work with Domain Events",
+  "type": "library",
   "authors": [
     {
       "name": "Stefan Priebsch",
-      "email": "stefan@priebsch.de"
+      "email": "stefan@priebsch.de",
+      "homepage": "https://priebsch.de"
     }
   ],
+  "license": "BSD-3-Clause",
   "require": {
     "php": ">=8.4",
     "crell/serde": "*",
