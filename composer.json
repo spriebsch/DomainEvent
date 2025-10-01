@@ -1,5 +1,5 @@
 {
-  "name": "spriebsch/DomainEvent",
+  "name": "spriebsch/domain-event",
   "description": "The best way to work with Domain Events",
   "type": "library",
   "authors": [
