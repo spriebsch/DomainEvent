@@ -7,6 +7,7 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'spriebsch\\domainevent\\abstractid' => '/ids/AbstractId.php',
                 'spriebsch\\domainevent\\causationid' => '/ids/CausationId.php',
                 'spriebsch\\domainevent\\correlationid' => '/ids/CorrelationId.php',
                 'spriebsch\\domainevent\\domainevent' => '/DomainEvent.php',
@@ -17,9 +18,11 @@ spl_autoload_register(
                 'spriebsch\\domainevent\\eventtopic' => '/topic/EventTopic.php',
                 'spriebsch\\domainevent\\jsondomaineventdeserializer' => '/json/JsonDomainEventDeserializer.php',
                 'spriebsch\\domainevent\\jsondomaineventserializer' => '/json/JsonDomainEventSerializer.php',
+                'spriebsch\\domainevent\\maptotopic' => '/attributes/MapToTopic.php',
                 'spriebsch\\domainevent\\payload' => '/Payload.php',
                 'spriebsch\\domainevent\\schemaversion' => '/SchemaVersion.php',
-                'spriebsch\\domainevent\\topicmap' => '/topic/TopicMap.php'
+                'spriebsch\\domainevent\\topicmap' => '/topic/TopicMap.php',
+                'spriebsch\\domainevent\\useascorrelationid' => '/attributes/UseAsCorrelationId.php'
             );
         }
         $cn = strtolower($class);

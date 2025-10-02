@@ -4,7 +4,7 @@ namespace spriebsch\DomainEvent;
 
 use Crell\Serde\SerdeCommon;
 
-class JsonDomainEventDeserializer implements DomainEventDeserializer
+final readonly class JsonDomainEventDeserializer implements DomainEventDeserializer
 {
     public function deserialize(string $domainEvent): DomainEvent
     {

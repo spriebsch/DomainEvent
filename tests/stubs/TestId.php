@@ -2,6 +2,6 @@
 
 namespace spriebsch\DomainEvent;
 
-final readonly class EventId extends AbstractId
+final readonly class TestId extends AbstractId
 {
 }

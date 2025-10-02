@@ -11,9 +11,11 @@ class SerializationTest extends TestCase
 {
     public function test_serde_serializes_and_deserializes_object(): void
     {
+        $id = TestId::generate();
         $serde = new SerdeCommon();
 
-        $object = new TestEvent(
+        $object = new ComplexEvent(
+            $id,
             true,
             'the-string',
             42,
@@ -42,11 +44,7 @@ class SerializationTest extends TestCase
         );
 
         $jsonString = $serde->serialize($object, format: 'json');
-
-        // Ensure deserialization runs without throwing
-        $deserializedObject = $serde->deserialize($jsonString, from: 'json', to: TestEvent::class);
-        $this->assertInstanceOf(TestEvent::class, $deserializedObject);
-
+        $deserializedObject = $serde->deserialize($jsonString, from: 'json', to: ComplexEvent::class);
         $this->assertEquals($object, $deserializedObject);
     }
 }

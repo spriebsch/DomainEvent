@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a9780c0789dd05bec860b01094922ff",
+    "content-hash": "fce76b50e5e6254f9cc43eb9e8b8dabb",
     "packages": [
         {
             "name": "crell/attributeutils",
@@ -303,16 +303,16 @@
         },
         {
             "name": "spriebsch/uuid",
-            "version": "1.0.3",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spriebsch/UUID.git",
-                "reference": "75325ce64ef16a005cbb9cd63d6d5c1a389b95f8"
+                "reference": "7dad6af3d70c42a0596e8cc40904a29b24c79fbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spriebsch/UUID/zipball/75325ce64ef16a005cbb9cd63d6d5c1a389b95f8",
-                "reference": "75325ce64ef16a005cbb9cd63d6d5c1a389b95f8",
+                "url": "https://api.github.com/repos/spriebsch/UUID/zipball/7dad6af3d70c42a0596e8cc40904a29b24c79fbb",
+                "reference": "7dad6af3d70c42a0596e8cc40904a29b24c79fbb",
                 "shasum": ""
             },
             "require": {
@@ -332,16 +332,15 @@
                 {
                     "name": "Stefan Priebsch",
                     "email": "stefan@priebsch.de",
-                    "homepage": "https://priebsch.de",
-                    "role": "Developer"
+                    "homepage": "https://priebsch.de"
                 }
             ],
             "description": "A fast and simple no-frills UUIDv4 implementation.",
             "support": {
                 "issues": "https://github.com/spriebsch/UUID/issues",
-                "source": "https://github.com/spriebsch/UUID/tree/1.0.3"
+                "source": "https://github.com/spriebsch/UUID/tree/2.0.0"
             },
-            "time": "2024-09-09T20:59:41+00:00"
+            "time": "2025-10-02T12:02:35+00:00"
         }
     ],
     "packages-dev": [],

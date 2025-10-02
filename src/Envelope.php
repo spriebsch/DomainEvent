@@ -2,34 +2,34 @@
 
 namespace spriebsch\DomainEvent;
 
+use ReflectionClass;
+use RuntimeException;
 use spriebsch\timestamp\Timestamp;
 
 final readonly class Envelope
 {
     private Timestamp $receivedAt;
     private ?Timestamp $persistedAt;
-
+    private ?EventTopic $topic;
     private Payload $payload;
 
     private function __construct(
         private EventId        $eventId,
         DomainEvent            $event,
-        private EventTopic     $topic,
-        private ?CorrelationId $correlationId,
+        ?EventTopic            $topic,
         private ?CausationId   $causationId,
         private ?SchemaVersion $schemaVersion,
         ?Timestamp             $persistedAt = null,
     )
     {
         $this->receivedAt = Timestamp::generate();
+        $this->topic = $this->determineTopic($topic, $event);
         $this->persistedAt = $persistedAt;
         $this->payload = new Payload($this, $event);
     }
 
     public static function from(
         DomainEvent    $event,
-        EventTopic     $topic,
-        ?CorrelationId $correlationId = null,
         ?CausationId   $causationId = null,
         ?SchemaVersion $schemaVersion = null,
     ): self
@@ -37,8 +37,7 @@ final readonly class Envelope
         return new self(
             EventId::generate(),
             $event,
-            $topic,
-            $correlationId,
+            null,
             $causationId,
             $schemaVersion,
             null,
@@ -50,7 +49,6 @@ final readonly class Envelope
         Timestamp      $persistedAt,
         DomainEvent    $event,
         EventTopic     $topic,
-        ?CorrelationId $correlationId = null,
         ?CausationId   $causationId = null,
         ?SchemaVersion $schemaVersion = null,
     ): self
@@ -59,7 +57,6 @@ final readonly class Envelope
             $eventId,
             $event,
             $topic,
-            $correlationId,
             $causationId,
             $schemaVersion,
             $persistedAt,
@@ -78,7 +75,24 @@ final readonly class Envelope
 
     public function correlationId(): ?CorrelationId
     {
-        return $this->correlationId;
+        $reflection = new ReflectionClass($this->payload()->event());
+        $methods = $reflection->getMethods();
+
+        foreach ($methods as $method) {
+            $attributes = $method->getAttributes(UseAsCorrelationId::class);
+
+            if (count($attributes) > 1) {
+                throw new RuntimeException('Method has more than one UseAsCorrelationId attribute');
+            }
+
+            if (count($attributes) === 1) {
+                $idMethod = $method->getName();
+
+                return CorrelationId::fromUUID($this->payload()->event()->$idMethod()->asUUID());
+            };
+        }
+
+        return null;
     }
 
     public function causationId(): ?CausationId
@@ -117,5 +131,22 @@ final readonly class Envelope
     public function payload(): Payload
     {
         return $this->payload;
+    }
+
+    private function determineTopic(?EventTopic $topic, DomainEvent $event): EventTopic
+    {
+        if ($topic !== null) {
+            return $topic;
+        }
+
+        $reflection = new ReflectionClass($event);
+        $attributes = $reflection->getAttributes(MapToTopic::class);
+
+        foreach ($attributes as $attribute) {
+            $instance = $attribute->newInstance();
+            return EventTopic::fromString($instance->topic);
+        }
+
+        throw new RuntimeException('Event has no topic attribute');
     }
 }

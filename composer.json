@@ -14,7 +14,7 @@
     "php": ">=8.4",
     "crell/serde": "*",
     "spriebsch/timestamp": "^1.1",
-    "spriebsch/uuid": "^1.0",
+    "spriebsch/uuid": "^2.0",
     "spriebsch/filesystem": "^1.0"
   },
   "autoload": {

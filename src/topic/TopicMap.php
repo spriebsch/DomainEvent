@@ -4,7 +4,7 @@ namespace spriebsch\DomainEvent;
 
 use spriebsch\filesystem\Filesystem;
 
-class TopicMap
+final class TopicMap
 {
     public function fromFile(string $path): self
     {

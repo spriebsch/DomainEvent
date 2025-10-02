@@ -7,13 +7,24 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'spriebsch\\domainevent\\abstractclass' => '/IdSerializationTest.php',
+                'spriebsch\\domainevent\\complexevent' => '/stubs/ComplexEvent.php',
+                'spriebsch\\domainevent\\domaineventtest' => '/DomainEventTest.php',
+                'spriebsch\\domainevent\\eventa' => '/stubs/EventA.php',
+                'spriebsch\\domainevent\\eventb' => '/stubs/EventB.php',
+                'spriebsch\\domainevent\\eventc' => '/stubs/EventC.php',
                 'spriebsch\\domainevent\\eventenvelopetest' => '/EventEnvelopeTest.php',
-                'spriebsch\\domainevent\\nullabletest' => '/stubs/TestEvent.php',
+                'spriebsch\\domainevent\\eventwithoutcorrelationid' => '/stubs/EventWithoutCorrelationId.php',
+                'spriebsch\\domainevent\\idserializationtest' => '/IdSerializationTest.php',
+                'spriebsch\\domainevent\\nullabletest' => '/stubs/ComplexEvent.php',
                 'spriebsch\\domainevent\\serializationtest' => '/SerializationTest.php',
-                'spriebsch\\domainevent\\somebackedenum' => '/stubs/TestEvent.php',
-                'spriebsch\\domainevent\\someenum' => '/stubs/TestEvent.php',
-                'spriebsch\\domainevent\\somevalueobject' => '/stubs/TestEvent.php',
-                'spriebsch\\domainevent\\testevent' => '/stubs/TestEvent.php'
+                'spriebsch\\domainevent\\simpleevent' => '/stubs/SimpleEvent.php',
+                'spriebsch\\domainevent\\somebackedenum' => '/stubs/ComplexEvent.php',
+                'spriebsch\\domainevent\\someclass' => '/IdSerializationTest.php',
+                'spriebsch\\domainevent\\someenum' => '/stubs/ComplexEvent.php',
+                'spriebsch\\domainevent\\somevalueobject' => '/stubs/ComplexEvent.php',
+                'spriebsch\\domainevent\\testevent' => '/stubs/TestEvent.php',
+                'spriebsch\\domainevent\\testid' => '/stubs/TestId.php'
             );
         }
         $cn = strtolower($class);

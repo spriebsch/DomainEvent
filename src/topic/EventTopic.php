@@ -15,10 +15,19 @@ final readonly class EventTopic
     ) {
     }
 
+    public static function fromComponents(
+        string $vendor,
+        string $domain,
+        string $context,
+        string $name
+    ): self
+    {
+        return new self($vendor, $domain, $context, $name);
+    }
+
     public static function fromString(string $topic): self
     {
-        // Expect exactly 4 components separated by 3 dots: vendor.domain.context.name
-        if (substr_count($topic, '.') < 3) {
+        if (substr_count($topic, '.') !== 3) {
             throw new RuntimeException('At least three dots!');
         }
 
@@ -55,7 +64,7 @@ final readonly class EventTopic
         return $this->name;
     }
 
-    public function toString(): string
+    public function asString(): string
     {
         return sprintf(
             '%s.%s.%s.%s',
