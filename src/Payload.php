@@ -4,7 +4,7 @@ namespace spriebsch\DomainEvent;
 
 use Crell\Serde\SerdeCommon;
 
-readonly class Payload
+final readonly class Payload
 {
     public function __construct(
         private Envelope    $envelope,

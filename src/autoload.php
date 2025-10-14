@@ -15,12 +15,12 @@ spl_autoload_register(
                 'spriebsch\\domainevent\\domaineventserializer' => '/DomainEventSerializer.php',
                 'spriebsch\\domainevent\\envelope' => '/Envelope.php',
                 'spriebsch\\domainevent\\eventid' => '/ids/EventId.php',
-                'spriebsch\\domainevent\\eventtopic' => '/topic/EventTopic.php',
                 'spriebsch\\domainevent\\jsondomaineventdeserializer' => '/json/JsonDomainEventDeserializer.php',
                 'spriebsch\\domainevent\\jsondomaineventserializer' => '/json/JsonDomainEventSerializer.php',
                 'spriebsch\\domainevent\\maptotopic' => '/attributes/MapToTopic.php',
                 'spriebsch\\domainevent\\payload' => '/Payload.php',
                 'spriebsch\\domainevent\\schemaversion' => '/SchemaVersion.php',
+                'spriebsch\\domainevent\\topic' => '/topic/Topic.php',
                 'spriebsch\\domainevent\\topicmap' => '/topic/TopicMap.php',
                 'spriebsch\\domainevent\\useascorrelationid' => '/attributes/UseAsCorrelationId.php'
             );

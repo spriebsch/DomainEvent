@@ -22,7 +22,8 @@ spl_autoload_register(
                 'spriebsch\\domainevent\\someenum' => '/doubles/SomeEnum.php',
                 'spriebsch\\domainevent\\somevalueobject' => '/doubles/SomeValueObject.php',
                 'spriebsch\\domainevent\\testevent' => '/doubles/TestEvent.php',
-                'spriebsch\\domainevent\\testid' => '/doubles/TestId.php'
+                'spriebsch\\domainevent\\testid' => '/doubles/TestId.php',
+                'spriebsch\\domainevent\\topictest' => '/EventTopicTest.php'
             );
         }
         $cn = strtolower($class);

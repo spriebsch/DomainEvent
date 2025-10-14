@@ -10,13 +10,13 @@ final readonly class Envelope
 {
     private Timestamp $receivedAt;
     private ?Timestamp $persistedAt;
-    private ?EventTopic $topic;
+    private ?Topic $topic;
     private Payload $payload;
 
     private function __construct(
         private EventId        $eventId,
         DomainEvent            $event,
-        ?EventTopic            $topic,
+        ?Topic                 $topic,
         private ?CausationId   $causationId,
         private ?SchemaVersion $schemaVersion,
         ?Timestamp             $persistedAt = null,
@@ -48,7 +48,7 @@ final readonly class Envelope
         EventId        $eventId,
         Timestamp      $persistedAt,
         string         $json,
-        EventTopic     $topic,
+        Topic          $topic,
         ?CausationId   $causationId = null,
         ?SchemaVersion $schemaVersion = null,
     ): self
@@ -68,7 +68,7 @@ final readonly class Envelope
         return $this->eventId;
     }
 
-    public function topic(): EventTopic
+    public function topic(): Topic
     {
         return $this->topic;
     }
@@ -133,7 +133,7 @@ final readonly class Envelope
         return $this->payload;
     }
 
-    private function determineTopic(?EventTopic $topic, DomainEvent $event): EventTopic
+    private function determineTopic(?Topic $topic, DomainEvent $event): Topic
     {
         if ($topic !== null) {
             return $topic;
@@ -145,7 +145,7 @@ final readonly class Envelope
         foreach ($attributes as $attribute) {
             $instance = $attribute->newInstance();
 
-            return EventTopic::fromString($instance->topic);
+            return Topic::fromString($instance->topic);
         }
 
         throw new RuntimeException('Event has no topic attribute');

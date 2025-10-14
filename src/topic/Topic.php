@@ -5,9 +5,9 @@ namespace spriebsch\DomainEvent;
 use InvalidArgumentException;
 use RuntimeException;
 
-final readonly class EventTopic
+final readonly class Topic
 {
-    public function __construct(
+    private function __construct(
         private string $vendor,
         private string $domain,
         private string $context,
@@ -27,19 +27,17 @@ final readonly class EventTopic
 
     public static function fromString(string $topic): self
     {
-        if (substr_count($topic, '.') !== 3) {
-            throw new RuntimeException('At least three dots!');
-        }
-
         $parts = explode('.', $topic);
-        if (count($parts) !== 4) {
-            throw new InvalidArgumentException(sprintf('Invalid topic format: %s. Expected vendor.domain.context.name', $topic));
+        if (count($parts) < 4) {
+            throw new RuntimeException(
+                sprintf('Invalid topic format: %s. Expected vendor.domain.context.name', $topic)
+            );
         }
 
-        [$vendor, $domain, $context, $name] = $parts;
-        if ($vendor === '' || $domain === '' || $context === '' || $name === '') {
-            throw new InvalidArgumentException('Topic components must be non-empty strings.');
-        }
+        $name = implode('.', array_slice($parts, 3));
+        array_splice($parts, 3);
+
+        [$vendor, $domain, $context] = $parts;
 
         return new self($vendor, $domain, $context, $name);
     }
