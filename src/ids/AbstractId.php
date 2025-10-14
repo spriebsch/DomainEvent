@@ -2,13 +2,13 @@
 
 namespace spriebsch\DomainEvent;
 
-use Crell\Serde\Attributes\ClassNameTypeMap;
+use Crell\Serde\Attributes\StaticTypeMap;
 use spriebsch\uuid\UUID;
 use spriebsch\uuid\UUIDv4;
 
 readonly abstract class AbstractId implements UUID
 {
-    #[ClassNameTypeMap(key: 'type')]
+    #[StaticTypeMap(key: 'type', map: ['uuidv4' => UUIDv4::class])]
     protected UUID $uuid; // See https://github.com/Crell/Serde/issues/91
 
     public static function generate(): static

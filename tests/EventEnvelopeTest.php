@@ -19,8 +19,7 @@ final class EventEnvelopeTest extends TestCase
 
     public function test_has_EventId(): void
     {
-        $event = new SimpleEvent();
-        $envelope = Envelope::from($event);
+        $envelope = Envelope::from(new SimpleEvent());
 
         $this->assertInstanceOf(EventId::class, $envelope->eventId());
     }
@@ -37,9 +36,7 @@ final class EventEnvelopeTest extends TestCase
 
     public function test_Schema_Version_defaults_to_1(): void
     {
-        $event = new SimpleEvent();
-
-        $envelope = Envelope::from($event);
+        $envelope = Envelope::from(new SimpleEvent());
 
         $this->assertSame(1, $envelope->schemaVersion()->asInt());
     }
@@ -56,9 +53,7 @@ final class EventEnvelopeTest extends TestCase
 
     public function test_CorrelationId_is_optional(): void
     {
-        $event = new EventWithoutCorrelationId();
-
-        $envelope = Envelope::from($event);
+        $envelope = Envelope::from(new EventWithoutCorrelationId());
 
         $this->assertNull($envelope->correlationId());
     }
@@ -66,9 +61,7 @@ final class EventEnvelopeTest extends TestCase
     public function test_has_CausationId(): void
     {
         $causationId = CausationId::generate();
-
-        $event = new SimpleEvent();
-        $envelope = Envelope::from($event, $causationId);
+        $envelope = Envelope::from(new SimpleEvent(), $causationId);
 
         $this->assertSame($causationId, $envelope->causationId());
     }
@@ -83,18 +76,7 @@ final class EventEnvelopeTest extends TestCase
 
     public function test_new_envelope_was_not_persisted(): void
     {
-        $topic = EventTopic::fromString('spriebsch.training.eventSourcing.created');
-        $persistedAt = Timestamp::generate();
-        $event = new SimpleEvent();
-
-        $envelope = Envelope::from($event);
-
-        $persisted = Envelope::fromPersisted(
-            $envelope->eventId(),
-            $persistedAt,
-            $envelope->payload()->event(),
-            $topic
-        );
+        $envelope = Envelope::from(new SimpleEvent());
 
         $this->assertFalse($envelope->isPersisted());
     }
@@ -107,14 +89,14 @@ final class EventEnvelopeTest extends TestCase
 
         $envelope = Envelope::from($event);
 
-        $persisted = Envelope::fromPersisted(
+        $loaded = Envelope::fromStorage(
             $envelope->eventId(),
             $persistedAt,
-            $envelope->payload()->event(),
+            $envelope->payload()->asJson(),
             $topic
         );
 
-        $this->assertTrue($persisted->isPersisted());
+        $this->assertTrue($loaded->isPersisted());
     }
 
     public function test_receivedAt_is_generated_on_envelope_creation(): void
@@ -127,8 +109,7 @@ final class EventEnvelopeTest extends TestCase
 
     public function test_persistedAt_is_null_by_default(): void
     {
-        $event = new SimpleEvent();
-        $envelope = Envelope::from($event);
+        $envelope = Envelope::from(new SimpleEvent());
 
         $this->assertNull($envelope->persistedAt());
     }

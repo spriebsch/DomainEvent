@@ -44,10 +44,10 @@ final readonly class Envelope
         );
     }
 
-    public static function fromPersisted(
+    public static function fromStorage(
         EventId        $eventId,
         Timestamp      $persistedAt,
-        DomainEvent    $event,
+        string         $json,
         EventTopic     $topic,
         ?CausationId   $causationId = null,
         ?SchemaVersion $schemaVersion = null,
@@ -55,7 +55,7 @@ final readonly class Envelope
     {
         return new self(
             $eventId,
-            $event,
+            new JsonDomainEventDeserializer()->deserialize($json),
             $topic,
             $causationId,
             $schemaVersion,
@@ -144,6 +144,7 @@ final readonly class Envelope
 
         foreach ($attributes as $attribute) {
             $instance = $attribute->newInstance();
+
             return EventTopic::fromString($instance->topic);
         }
 

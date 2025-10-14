@@ -2,6 +2,8 @@
 
 namespace spriebsch\DomainEvent;
 
+use Crell\Serde\SerdeCommon;
+
 readonly class Payload
 {
     public function __construct(
@@ -17,5 +19,10 @@ readonly class Payload
     public function event(): DomainEvent
     {
         return $this->event;
+    }
+
+    public function asJson(): string
+    {
+        return new SerdeCommon()->serialize($this->event, format: 'json');
     }
 }

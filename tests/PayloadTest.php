@@ -2,19 +2,17 @@
 
 namespace spriebsch\DomainEvent;
 
-use Crell\Serde\SerdeCommon;
-use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversNothing]
-class SerializationTest extends TestCase
+#[CoversClass(Payload::class)]
+final class PayloadTest extends TestCase
 {
-    public function test_serde_serializes_and_deserializes_object(): void
+    public function test_can_be_serialized_and_unserialized(): void
     {
         $id = TestId::generate();
-        $serde = new SerdeCommon();
 
-        $object = new ComplexEvent(
+        $event = new ComplexEvent(
             $id,
             true,
             'the-string',
@@ -44,8 +42,18 @@ class SerializationTest extends TestCase
             )
         );
 
-        $jsonString = $serde->serialize($object, format: 'json');
-        $deserializedObject = $serde->deserialize($jsonString, from: 'json', to: ComplexEvent::class);
-        $this->assertEquals($object, $deserializedObject);
+        $envelope = Envelope::from($event);
+        $payload = $envelope->payload();
+
+        $json = $payload->asJson();
+
+        $recreated = Envelope::fromStorage(
+            $envelope->eventId(),
+            $envelope->receivedAt(),
+            $json,
+            $envelope->topic()
+        );
+
+        $this->assertEquals($event, $recreated->payload()->event());
     }
 }
