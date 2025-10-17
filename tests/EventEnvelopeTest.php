@@ -74,14 +74,14 @@ final class EventEnvelopeTest extends TestCase
         $this->assertNull($envelope->causationId());
     }
 
-    public function test_new_envelope_was_not_persisted(): void
+    public function test_a_new_envelope_is_reported_as_not_persisted(): void
     {
         $envelope = Envelope::from(new SimpleEvent());
 
         $this->assertFalse($envelope->isPersisted());
     }
 
-    public function test_loaded_envelope_was_persisted(): void
+    public function test_a_loaded_envelope_is_reported_as_persisted(): void
     {
         $topic = Topic::fromString('spriebsch.training.eventSourcing.created');
         $persistedAt = Timestamp::generate();
