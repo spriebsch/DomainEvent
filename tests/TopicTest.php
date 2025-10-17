@@ -3,9 +3,14 @@
 namespace spriebsch\DomainEvent;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Topic::class)]
+#[UsesClass(AbstractId::class)]
+#[UsesClass(MapToTopic::class)]
+#[UsesClass(Payload::class)]
+#[UsesClass(JsonDomainEventDeserializer::class)]
 final class TopicTest extends TestCase
 {
     public function test_has_vendor(): void

@@ -3,10 +3,17 @@
 namespace spriebsch\DomainEvent;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use spriebsch\timestamp\Timestamp;
 
 #[CoversClass(Envelope::class)]
+#[UsesClass(AbstractId::class)]
+#[UsesClass(MapToTopic::class)]
+#[UsesClass(Payload::class)]
+#[UsesClass(Topic::class)]
+#[UsesClass(SchemaVersion::class)]
+#[UsesClass(JsonDomainEventDeserializer::class)]
 final class EventEnvelopeTest extends TestCase
 {
     public function test_wraps_event(): void

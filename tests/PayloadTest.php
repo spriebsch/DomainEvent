@@ -3,9 +3,15 @@
 namespace spriebsch\DomainEvent;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Payload::class)]
+#[UsesClass(AbstractId::class)]
+#[UsesClass(MapToTopic::class)]
+#[UsesClass(Topic::class)]
+#[UsesClass(Envelope::class)]
+#[UsesClass(JsonDomainEventDeserializer::class)]
 final class PayloadTest extends TestCase
 {
     public function test_can_be_serialized_and_unserialized(): void
