@@ -49,6 +49,7 @@ final readonly class Envelope
         Timestamp      $receivedAt,
         Timestamp      $persistedAt,
         string         $json,
+        string         $class,
         Topic          $topic,
         ?CausationId   $causationId = null,
         ?SchemaVersion $schemaVersion = null,
@@ -57,7 +58,7 @@ final readonly class Envelope
         return new self(
             $eventId,
             $receivedAt,
-            new JsonDomainEventDeserializer()->deserialize($json),
+            new JsonDomainEventDeserializer()->deserialize($json, $class),
             $topic,
             $causationId,
             $schemaVersion,

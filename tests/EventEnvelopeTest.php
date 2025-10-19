@@ -102,7 +102,8 @@ final class EventEnvelopeTest extends TestCase
             $receivedAt,
             $persistedAt,
             $envelope->payload()->asJson(),
-            $topic
+            SimpleEvent::class,
+            $topic,
         );
 
         $this->assertTrue($loaded->isPersisted());

@@ -6,9 +6,8 @@ use Crell\Serde\SerdeCommon;
 
 final readonly class JsonDomainEventDeserializer implements DomainEventDeserializer
 {
-    public function deserialize(string $domainEvent): DomainEvent
+    public function deserialize(string $domainEvent, string $class): DomainEvent
     {
-        // @todo !!! how to determine the class?
-        return new SerdeCommon()->deserialize($domainEvent, from: 'json', to: TestEvent::class);
+        return new SerdeCommon()->deserialize($domainEvent, from: 'json', to: $class);
     }
 }

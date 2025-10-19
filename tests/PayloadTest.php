@@ -60,6 +60,7 @@ final class PayloadTest extends TestCase
             $envelope->receivedAt(),
             $persistedAt,
             $json,
+            ComplexEvent::class,
             $envelope->topic()
         );
 

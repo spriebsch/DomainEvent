@@ -4,5 +4,5 @@ namespace spriebsch\DomainEvent;
 
 interface DomainEventDeserializer
 {
-    public function deserialize(string $domainEvent): DomainEvent;
+    public function deserialize(string $domainEvent, string $class): DomainEvent;
 }
