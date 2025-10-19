@@ -91,6 +91,7 @@ final class EventEnvelopeTest extends TestCase
     public function test_a_loaded_envelope_is_reported_as_persisted(): void
     {
         $topic = Topic::fromString('spriebsch.training.eventSourcing.created');
+        $receivedAt = Timestamp::generate();
         $persistedAt = Timestamp::generate();
         $event = new SimpleEvent();
 
@@ -98,6 +99,7 @@ final class EventEnvelopeTest extends TestCase
 
         $loaded = Envelope::fromStorage(
             $envelope->eventId(),
+            $receivedAt,
             $persistedAt,
             $envelope->payload()->asJson(),
             $topic

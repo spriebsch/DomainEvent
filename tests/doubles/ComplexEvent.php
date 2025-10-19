@@ -32,7 +32,8 @@ final readonly class ComplexEvent implements TestEvent
      */
     public function array(): array
     {
-        return $this->array;
+        // Ensure keys are sequential ints and values are strings for static analysis
+        return array_values(array_map(static fn($v): string => (string) $v, $this->array));
     }
 
     public function valueObject(): SomeValueObject

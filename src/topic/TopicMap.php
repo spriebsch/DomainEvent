@@ -2,13 +2,24 @@
 
 namespace spriebsch\DomainEvent;
 
+use RuntimeException;
 use spriebsch\filesystem\Filesystem;
+use spriebsch\filesystem\File as FsFile;
 
 final class TopicMap
 {
     public function fromFile(string $path): self
     {
-        return self::fromArray(Filesystem::from($path)->require());
+        $fs = Filesystem::from($path);
+        if (!$fs->isFile()) {
+            throw new RuntimeException(sprintf('Path "%s" is not a file', $path));
+        }
+        /** @var FsFile $fs */
+        $data = $fs->require();
+        if (!is_array($data)) {
+            throw new RuntimeException('Topic map file must return array');
+        }
+        return self::fromArray($data);
     }
 
     public function fromArray(array $topicMap): self
@@ -20,11 +31,16 @@ final class TopicMap
 
     public function classFor(string $topic): string
     {
-        return $this->topicMap[$topic];
+        return (string) $this->topicMap[$topic];
     }
 
     public function topicFor(DomainEvent $event): string
     {
-        return array_flip($this->topicMap)[$event::class];
+        foreach ($this->topicMap as $topic => $class) {
+            if ($class === $event::class) {
+                return (string) $topic;
+            }
+        }
+        throw new RuntimeException(sprintf('No topic found for class %s', $event::class));
     }
 }

@@ -3,9 +3,10 @@
 namespace spriebsch\DomainEvent;
 
 #[MapToTopic('spriebsch.domainEvent.test.simple')]
-final readonly class SimpleEvent implements TestEvent
+final class SimpleEvent implements TestEvent
 {
     private TestId $id;
+
     #[UseAsCorrelationId]
     public function id(): TestId
     {

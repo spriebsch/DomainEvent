@@ -8,13 +8,13 @@ use spriebsch\timestamp\Timestamp;
 
 final readonly class Envelope
 {
-    private Timestamp $receivedAt;
     private ?Timestamp $persistedAt;
-    private ?Topic $topic;
+    private Topic $topic;
     private Payload $payload;
 
     private function __construct(
         private EventId        $eventId,
+        private Timestamp      $receivedAt,
         DomainEvent            $event,
         ?Topic                 $topic,
         private ?CausationId   $causationId,
@@ -22,7 +22,6 @@ final readonly class Envelope
         ?Timestamp             $persistedAt = null,
     )
     {
-        $this->receivedAt = Timestamp::generate();
         $this->topic = $this->determineTopic($topic, $event);
         $this->persistedAt = $persistedAt;
         $this->payload = new Payload($this, $event);
@@ -36,6 +35,7 @@ final readonly class Envelope
     {
         return new self(
             EventId::generate(),
+            Timestamp::generate(),
             $event,
             null,
             $causationId,
@@ -46,6 +46,7 @@ final readonly class Envelope
 
     public static function fromStorage(
         EventId        $eventId,
+        Timestamp      $receivedAt,
         Timestamp      $persistedAt,
         string         $json,
         Topic          $topic,
@@ -55,6 +56,7 @@ final readonly class Envelope
     {
         return new self(
             $eventId,
+            $receivedAt,
             new JsonDomainEventDeserializer()->deserialize($json),
             $topic,
             $causationId,
@@ -87,8 +89,12 @@ final readonly class Envelope
 
             if (count($attributes) === 1) {
                 $idMethod = $method->getName();
+                $id = $this->payload()->event()->$idMethod();
+                if (!$id instanceof AbstractId) {
+                    return null; // Unexpected return type; ignore
+                }
 
-                return CorrelationId::fromUUID($this->payload()->event()->$idMethod()->asUUID());
+                return CorrelationId::fromUUID($id->asUUID());
             };
         }
 
@@ -100,7 +106,7 @@ final readonly class Envelope
         return $this->causationId;
     }
 
-    public function schemaVersion(): ?SchemaVersion
+    public function schemaVersion(): SchemaVersion
     {
         if ($this->schemaVersion === null) {
             return SchemaVersion::from(1);

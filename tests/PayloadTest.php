@@ -5,6 +5,7 @@ namespace spriebsch\DomainEvent;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
+use spriebsch\timestamp\Timestamp;
 
 #[CoversClass(Payload::class)]
 #[UsesClass(AbstractId::class)]
@@ -52,10 +53,12 @@ final class PayloadTest extends TestCase
         $payload = $envelope->payload();
 
         $json = $payload->asJson();
+        $persistedAt = Timestamp::generate();
 
         $recreated = Envelope::fromStorage(
             $envelope->eventId(),
             $envelope->receivedAt(),
+            $persistedAt,
             $json,
             $envelope->topic()
         );

@@ -7,12 +7,16 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'spriebsch\\domainevent\\abstractidtest' => '/AbstractIdTest.php',
                 'spriebsch\\domainevent\\complexevent' => '/doubles/ComplexEvent.php',
+                'spriebsch\\domainevent\\envelopeerrortest' => '/EnvelopeErrorTest.php',
                 'spriebsch\\domainevent\\eventa' => '/doubles/EventA.php',
                 'spriebsch\\domainevent\\eventb' => '/doubles/EventB.php',
                 'spriebsch\\domainevent\\eventc' => '/doubles/EventC.php',
                 'spriebsch\\domainevent\\eventenvelopetest' => '/EventEnvelopeTest.php',
                 'spriebsch\\domainevent\\eventwithoutcorrelationid' => '/doubles/EventWithoutCorrelationId.php',
+                'spriebsch\\domainevent\\eventwithouttopic' => '/doubles/EventWithoutTopic.php',
+                'spriebsch\\domainevent\\eventwithtwocorrelationids' => '/doubles/EventWithTwoCorrelationIds.php',
                 'spriebsch\\domainevent\\nestedvalueobject' => '/doubles/NestedValueObject.php',
                 'spriebsch\\domainevent\\nullable' => '/doubles/Nullable.php',
                 'spriebsch\\domainevent\\payloadtest' => '/PayloadTest.php',
@@ -23,7 +27,7 @@ spl_autoload_register(
                 'spriebsch\\domainevent\\somevalueobject' => '/doubles/SomeValueObject.php',
                 'spriebsch\\domainevent\\testevent' => '/doubles/TestEvent.php',
                 'spriebsch\\domainevent\\testid' => '/doubles/TestId.php',
-                'spriebsch\\domainevent\\topictest' => '/EventTopicTest.php'
+                'spriebsch\\domainevent\\topictest' => '/TopicTest.php'
             );
         }
         $cn = strtolower($class);
