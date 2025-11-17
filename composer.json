@@ -12,7 +12,7 @@
   "license": "BSD-3-Clause",
   "require": {
     "php": ">=8.4",
-    "crell/serde": "*",
+    "crell/serde": "^1.5",
     "spriebsch/timestamp": "^1.1",
     "spriebsch/uuid": "^2.0",
     "spriebsch/filesystem": "^1.0"
@@ -22,6 +22,9 @@
       "src"
     ]
   },
+  "bin": [
+    "bin/generate-topic-map.php"
+  ],
   "scripts": {
     "post-autoload-dump": "@generate-autoloaders",
     "clean": "rm -rf build",
