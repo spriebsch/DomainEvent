@@ -1,7 +1,11 @@
 <?php declare(strict_types=1);
 
-use spriebsch\DomainEvent\DomainEvent;
-use spriebsch\DomainEvent\MapToTopic;
+namespace spriebsch\DomainEvent;
+
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use RuntimeException;
 
 final readonly class GenerateTopicMap
 {
@@ -13,12 +17,22 @@ final readonly class GenerateTopicMap
             );
         }
 
-        foreach (glob($directory . '/*.php') as $file) {
-            if (basename($file) == 'TopicMap.php') {
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+
+        foreach ($iterator as $file) {
+            if ($file->isDir()) {
                 continue;
             }
 
-            require_once $file;
+            if (!str_ends_with($file->getPathname(), '.php')) {
+                continue;
+            }
+
+            if (($file->getFilename() === 'TopicMap.php')) {
+                continue;
+            }
+
+            require_once $file->getPathname();
         }
 
         $allClasses = get_declared_classes();

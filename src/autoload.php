@@ -8,6 +8,8 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'spriebsch\\domainevent\\abstractid' => '/ids/AbstractId.php',
+                'spriebsch\\domainevent\\canapplydomaineventstrait' => '/sourcing/CanApplyDomainEventsTrait.php',
+                'spriebsch\\domainevent\\canrecorddomaineventstrait' => '/sourcing/CanRecordDomainEventsTrait.php',
                 'spriebsch\\domainevent\\causationid' => '/ids/CausationId.php',
                 'spriebsch\\domainevent\\correlationid' => '/ids/CorrelationId.php',
                 'spriebsch\\domainevent\\domainevent' => '/DomainEvent.php',
@@ -15,6 +17,8 @@ spl_autoload_register(
                 'spriebsch\\domainevent\\domaineventserializer' => '/DomainEventSerializer.php',
                 'spriebsch\\domainevent\\envelope' => '/Envelope.php',
                 'spriebsch\\domainevent\\eventid' => '/ids/EventId.php',
+                'spriebsch\\domainevent\\generatetopicmap' => '/topic/GenerateTopicMap.php',
+                'spriebsch\\domainevent\\iseventsourcedtrait' => '/sourcing/IsEventSourcedTrait.php',
                 'spriebsch\\domainevent\\jsondomaineventdeserializer' => '/json/JsonDomainEventDeserializer.php',
                 'spriebsch\\domainevent\\jsondomaineventserializer' => '/json/JsonDomainEventSerializer.php',
                 'spriebsch\\domainevent\\maptotopic' => '/attributes/MapToTopic.php',

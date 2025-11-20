@@ -17,6 +17,7 @@ spl_autoload_register(
                 'spriebsch\\domainevent\\eventwithoutcorrelationid' => '/doubles/EventWithoutCorrelationId.php',
                 'spriebsch\\domainevent\\eventwithouttopic' => '/doubles/EventWithoutTopic.php',
                 'spriebsch\\domainevent\\eventwithtwocorrelationids' => '/doubles/EventWithTwoCorrelationIds.php',
+                'spriebsch\\domainevent\\generatetopicmaptest' => '/GenerateTopicMapTest.php',
                 'spriebsch\\domainevent\\nestedvalueobject' => '/doubles/NestedValueObject.php',
                 'spriebsch\\domainevent\\nullable' => '/doubles/Nullable.php',
                 'spriebsch\\domainevent\\payloadtest' => '/PayloadTest.php',
