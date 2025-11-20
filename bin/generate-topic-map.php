@@ -1,5 +1,9 @@
 <?php declare(strict_types=1);
 
+namespace spriebsch\DomainEvent;
+
+use RuntimeException;
+
 require $_composer_autoload_path;
 
 if (!isset($argv[1])) {
